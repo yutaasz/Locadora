@@ -26,13 +26,9 @@ class Customer {
 
         while (enumRentals.hasMoreElements()) {
             Rental each = (Rental) enumRentals.nextElement();
-
-            // show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" +
-                    String.valueOf(each.getCharge()) + "\n";
+            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
         }
 
-        // footer
         result += "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
         result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) +
                 " frequent renter points";
@@ -40,7 +36,6 @@ class Customer {
         return result;
     }
 
-    // NOVO: substitui totalAmount
     private double getTotalCharge() {
         double result = 0;
         Enumeration enumRentals = rentals.elements();
@@ -53,7 +48,6 @@ class Customer {
         return result;
     }
 
-    // NOVO: substitui frequentRenterPoints
     private int getTotalFrequentRenterPoints() {
         int result = 0;
         Enumeration enumRentals = rentals.elements();
@@ -65,6 +59,26 @@ class Customer {
 
         return result;
     }
+
+    // NOVA FEATURE: HTML STATEMENT
+    public String htmlStatement() {
+        Enumeration rentals = this.rentals.elements();
+        String result = "<H1>Rentals for <EM>" + getName() + "</EM></H1><P>\n";
+
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
+            result += each.getMovie().getTitle() + ": " +
+                    String.valueOf(each.getCharge()) + "<BR>\n";
+        }
+
+        result += "<P>You owe <EM>" + String.valueOf(getTotalCharge()) + "</EM><P>\n";
+        result += "On this rental you earned <EM>" +
+                String.valueOf(getTotalFrequentRenterPoints()) +
+                "</EM> frequent renter points<P>";
+
+        return result;
+    }
 }
+
 
 
