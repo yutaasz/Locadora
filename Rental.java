@@ -2,53 +2,30 @@ package Locadora;
 
 class Rental {
 
-    private Movie movie;
-    private int daysRented;
+    private Movie _movie;
+    private int _daysRented;
 
     public Rental(Movie movie, int daysRented) {
-        this.movie = movie;
-        this.daysRented = daysRented;
+        _movie = movie;
+        _daysRented = daysRented;
     }
 
     public int getDaysRented() {
-        return daysRented;
+        return _daysRented;
     }
 
     public Movie getMovie() {
-        return movie;
+        return _movie;
     }
 
-    // já deve existir no seu código
+    // AGORA ESTE AQUI SÓ DELEGA PARA MOVIE
     public double getCharge() {
-        double result = 0;
-
-        switch (movie.getPriceCode()) {
-            case Movie.REGULAR:
-                result += 2;
-                if (daysRented > 2)
-                    result += (daysRented - 2) * 1.5;
-                break;
-
-            case Movie.NEW_RELEASE:
-                result += daysRented * 3;
-                break;
-
-            case Movie.CHILDRENS:
-                result += 1.5;
-                if (daysRented > 3)
-                    result += (daysRented - 3) * 1.5;
-                break;
-        }
-
-        return result;
+        return _movie.getCharge(_daysRented);
     }
 
-    // MÉTODO QUE VOCÊ ACABOU DE EXTRair e MOVER PRA CÁ
     public int getFrequentRenterPoints() {
-        // bonus se for lançamento e alugou por mais de 1 dia
-        if (movie.getPriceCode() == Movie.NEW_RELEASE && daysRented > 1) {
+        if ((_movie.getPriceCode() == Movie.NEW_RELEASE) && _daysRented > 1)
             return 2;
-        }
         return 1;
     }
 }
