@@ -1,6 +1,7 @@
 package Locadora;
 
-public class Rental {
+class Rental {
+
     private Movie movie;
     private int daysRented;
 
@@ -17,6 +18,7 @@ public class Rental {
         return movie;
     }
 
+    // já deve existir no seu código
     public double getCharge() {
         double result = 0;
 
@@ -39,5 +41,14 @@ public class Rental {
         }
 
         return result;
+    }
+
+    // MÉTODO QUE VOCÊ ACABOU DE EXTRair e MOVER PRA CÁ
+    public int getFrequentRenterPoints() {
+        // bonus se for lançamento e alugou por mais de 1 dia
+        if (movie.getPriceCode() == Movie.NEW_RELEASE && daysRented > 1) {
+            return 2;
+        }
+        return 1;
     }
 }

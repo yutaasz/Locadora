@@ -3,46 +3,47 @@ package Locadora;
 import java.util.Enumeration;
 import java.util.Vector;
 
-public class Customer {
-    private String _name;
-    private Vector _rentals = new Vector();
+class Customer {
+
+    private String name;
+    private Vector rentals = new Vector();
 
     public Customer(String name) {
-        _name = name;
+        this.name = name;
     }
 
     public void addRental(Rental arg) {
-        _rentals.addElement(arg);
+        rentals.addElement(arg);
     }
 
     public String getName() {
-        return _name;
+        return name;
     }
 
     public String statement() {
         double totalAmount = 0;
         int frequentRenterPoints = 0;
-        Enumeration rentals = _rentals.elements();
+        Enumeration enumRentals = rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
 
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
+        while (enumRentals.hasMoreElements()) {
+            Rental each = (Rental) enumRentals.nextElement();
 
-            frequentRenterPoints++;
-            if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
-                 each.getDaysRented() > 1)
-                frequentRenterPoints++;
+            // calcula preço do aluguel
+            double thisAmount = each.getCharge();
 
-            result += "\t" + each.getMovie().getTitle() + "\t"
-                    + String.valueOf(each.getCharge()) + "\n";
+            // soma os pontos (AGORA usando o método da classe Rental)
+            frequentRenterPoints += each.getFrequentRenterPoints();
 
-            totalAmount += each.getCharge();
+            // mostra valores para este aluguel
+            result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount + "\n";
+            totalAmount += thisAmount;
         }
 
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints)
-                + " frequent renter points";
+        result += "Amount owed is " + totalAmount + "\n";
+        result += "You earned " + frequentRenterPoints + " frequent renter points";
 
         return result;
     }
 }
+
