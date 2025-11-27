@@ -1,23 +1,17 @@
 package Locadora;
 
-class Movie {
+public class Movie {
 
     public static final int CHILDRENS = 2;
     public static final int REGULAR = 0;
     public static final int NEW_RELEASE = 1;
 
     private String _title;
-
-    // AGORA É UM PRICE, NÃO MAIS UM INT
     private Price _price;
 
     public Movie(String name, int priceCode) {
         _title = name;
         setPriceCode(priceCode);
-    }
-
-    public String getTitle() {
-        return _title;
     }
 
     public int getPriceCode() {
@@ -29,47 +23,30 @@ class Movie {
             case REGULAR:
                 _price = new RegularPrice();
                 break;
-
             case CHILDRENS:
                 _price = new ChildrensPrice();
                 break;
-
             case NEW_RELEASE:
                 _price = new NewReleasePrice();
                 break;
-
             default:
                 throw new IllegalArgumentException("Incorrect Price Code");
         }
     }
 
-    public double getCharge(int daysRented) {
-        double result = 0;
-
-        switch (this.getPriceCode()) {
-            case REGULAR:
-                result += 2;
-                if (daysRented > 2)
-                    result += (daysRented - 2) * 1.5;
-                break;
-
-            case NEW_RELEASE:
-                result += daysRented * 3;
-                break;
-
-            case CHILDRENS:
-                result += 1.5;
-                if (daysRented > 3)
-                    result += (daysRented - 3) * 1.5;
-                break;
-        }
-        return result;
+    public String getTitle() {
+        return _title;
     }
 
+    // Passo 1: agora Movie só encaminha
+    public double getCharge(int daysRented) {
+        return _price.getCharge(daysRented);
+    }
+
+    // Passo 2: também só encaminha
     public int getFrequentRenterPoints(int daysRented) {
-        if (this.getPriceCode() == NEW_RELEASE && daysRented > 1)
-            return 2;
-        return 1;
+        return _price.getFrequentRenterPoints(daysRented);
     }
 }
+
 
