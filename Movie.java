@@ -7,23 +7,40 @@ class Movie {
     public static final int NEW_RELEASE = 1;
 
     private String _title;
-    private int _priceCode;
 
-    public Movie(String title, int priceCode) {
-        _title = title;
-        _priceCode = priceCode;
-    }
+    // AGORA É UM PRICE, NÃO MAIS UM INT
+    private Price _price;
 
-    public int getPriceCode() {
-        return _priceCode;
-    }
-
-    public void setPriceCode(int arg) {
-        _priceCode = arg;
+    public Movie(String name, int priceCode) {
+        _title = name;
+        setPriceCode(priceCode);
     }
 
     public String getTitle() {
         return _title;
+    }
+
+    public int getPriceCode() {
+        return _price.getPriceCode();
+    }
+
+    public void setPriceCode(int arg) {
+        switch (arg) {
+            case REGULAR:
+                _price = new RegularPrice();
+                break;
+
+            case CHILDRENS:
+                _price = new ChildrensPrice();
+                break;
+
+            case NEW_RELEASE:
+                _price = new NewReleasePrice();
+                break;
+
+            default:
+                throw new IllegalArgumentException("Incorrect Price Code");
+        }
     }
 
     public double getCharge(int daysRented) {
@@ -46,14 +63,13 @@ class Movie {
                     result += (daysRented - 3) * 1.5;
                 break;
         }
-
         return result;
     }
 
-    // NOVO MÉTODO AQUI
     public int getFrequentRenterPoints(int daysRented) {
         if (this.getPriceCode() == NEW_RELEASE && daysRented > 1)
             return 2;
         return 1;
     }
 }
+
