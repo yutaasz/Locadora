@@ -26,7 +26,6 @@ class Movie {
         return _title;
     }
 
-    // NOVO MÉTODO: SWITCH VEIO PRA CÁ
     public double getCharge(int daysRented) {
         double result = 0;
 
@@ -49,5 +48,12 @@ class Movie {
         }
 
         return result;
+    }
+
+    // NOVO MÉTODO AQUI
+    public int getFrequentRenterPoints(int daysRented) {
+        if (this.getPriceCode() == NEW_RELEASE && daysRented > 1)
+            return 2;
+        return 1;
     }
 }
