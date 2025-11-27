@@ -4,35 +4,21 @@ import java.util.Enumeration;
 
 public class TextStatement extends Statement {
 
-    public String value(Customer aCustomer) {
-        Enumeration rentals = aCustomer.getRentals();
-
-        String result = header(aCustomer);
-
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            result += eachRental(each);
-        }
-
-        result += footer(aCustomer);
-
-        return result;
-    }
-
-    protected String header(Customer aCustomer) {
+    @Override
+    protected String headerString(Customer aCustomer) {
         return "Rental Record for " + aCustomer.getName() + "\n";
     }
 
-    protected String eachRental(Rental rental) {
-        return "\t" + rental.getMovie().getTitle() + "\t" +
-                rental.getCharge() + "\n";
+    @Override
+    protected String eachRentalString(Rental aRental) {
+        return "\t" + aRental.getMovie().getTitle() + "\t" + aRental.getCharge() + "\n";
     }
 
-    protected String footer(Customer aCustomer) {
+    @Override
+    protected String footerString(Customer aCustomer) {
         return "Amount owed is " + aCustomer.getTotalCharge() + "\n"
                 + "You earned " + aCustomer.getTotalFrequentRenterPoints()
                 + " frequent renter points";
     }
 }
-
 
