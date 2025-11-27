@@ -2,51 +2,49 @@ package Locadora;
 
 public class Movie {
 
-    public static final int CHILDRENS = 2;
-    public static final int REGULAR = 0;
-    public static final int NEW_RELEASE = 1;
+   public static final int REGULAR = 0;
+   public static final int NEW_RELEASE = 1;
+   public static final int CHILDRENS = 2;
 
-    private String _title;
-    private Price _price;
+   private String _title;
+   private Price _price;
 
-    public Movie(String name, int priceCode) {
-        _title = name;
-        setPriceCode(priceCode);
-    }
+   public Movie(String name, int priceCode) {
+      _title = name;
+      setPriceCode(priceCode);
+   }
 
-    public int getPriceCode() {
-        return _price.getPriceCode();
-    }
+   public int getPriceCode() {
+      return _price.getPriceCode();
+   }
 
-    public void setPriceCode(int arg) {
-        switch (arg) {
-            case REGULAR:
-                _price = new RegularPrice();
-                break;
-            case CHILDRENS:
-                _price = new ChildrensPrice();
-                break;
-            case NEW_RELEASE:
-                _price = new NewReleasePrice();
-                break;
-            default:
-                throw new IllegalArgumentException("Incorrect Price Code");
-        }
-    }
+   public void setPriceCode(int arg) {
+      switch (arg) {
+         case REGULAR:
+            _price = new RegularPrice();
+            break;
+         case CHILDRENS:
+            _price = new ChildrensPrice();
+            break;
+         case NEW_RELEASE:
+            _price = new NewReleasePrice();
+            break;
+         default:
+            throw new IllegalArgumentException("Incorrect Price Code");
+      }
+   }
 
-    public String getTitle() {
-        return _title;
-    }
+   public String getTitle() {
+      return _title;
+   }
 
-    // Passo 1: agora Movie só encaminha
-    public double getCharge(int daysRented) {
-        return _price.getCharge(daysRented);
-    }
+   public double getCharge(int daysRented) {
+      return _price.getCharge(daysRented);
+   }
 
-    // Passo 2: também só encaminha
-    public int getFrequentRenterPoints(int daysRented) {
-        return _price.getFrequentRenterPoints(daysRented);
-    }
+   // *** Atualizado no Passo 6 ***
+   public int getFrequentRenterPoints(int daysRented) {
+      return _price.getFrequentRenterPoints(daysRented);
+   }
 }
-
 
